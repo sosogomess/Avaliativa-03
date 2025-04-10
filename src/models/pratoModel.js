@@ -5,21 +5,32 @@ class PratoModel {
     return await prisma.task.findMany();
   };
 
-  create = async (descricao) => {
+  create = async ( name, description, price, category, ingredients, imageUrl, prepTime) => {
     return await prisma.task.create({
       data: {
-        descricao,
+        name,
+        description,
+        price,
+        category,
+        ingredients,
+        imageUrl,
+        prepTime
       },
     });
   };
 
-  update = async (id, concluida, descricao) => {
+  update = async ( name, description, price,category, ingredients, imageUrl, prepTime) => {
     try {
       const prato = await prisma.task.update({
         where: { id },
         data: {
-          concluida: concluida !== undefined ? concluida : true,
-          descricao,
+        name,
+        description,
+        price,
+        category,
+        ingredients,
+        imageUrl,
+        prepTime
         },
       });
 

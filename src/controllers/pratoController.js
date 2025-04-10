@@ -12,14 +12,29 @@ class PratoController {
   };
 
   create = async (req, res) => {
-    const { descricao } = req.body;
-    // const descricao = req.body.descricao;
+    const { name, description, price, category, ingredients, imageUrl, prepTime } = req.body;
     try {
-      if (!descricao) {
+      if (!name) {
+        return res.status(400).json({ erro: "Nome é obrigatório" });
+      }
+
+      if (!description) {
         return res.status(400).json({ erro: "Descrição é obrigatória" });
       }
 
-      const novoPrato = await pratoModel.create(descricao);
+      if (!price) {
+        return res.status(400).json({ erro: "Preço é obrigatório" });
+      }
+
+      if (!category) {
+        return res.status(400).json({ erro: "Categoria é obrigatória" });
+      }
+
+      if (!ingredients) {
+        return res.status(400).json({ erro: "Ingredientes é obrigatório" });
+      }
+
+      const novoPrato = await pratoModel.create( name, description, price, category, ingredients, imageUrl, prepTime);
       res.status(201).json(novoPrato);
     } catch (error) {
       console.error(error);
@@ -29,13 +44,18 @@ class PratoController {
 
   update = async (req, res) => {
     const { id } = req.params;
-    const { concluida, descricao } = req.body;
+    const { name, description, price,category, ingredients, imageUrl, prepTime } = req.body;
 
     try {
       const pratoAtualizado = await pratoModel.update(
         Number(id),
-        concluida,
-        descricao
+        name,
+        description,
+        price,
+        category,
+        ingredients,
+        imageUrl,
+        prepTime
       );
 
       if (!pratotualizada) {
