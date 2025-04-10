@@ -42,6 +42,25 @@ class PratoController {
     }
   };
 
+  
+  getById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const prato = await pratoModel.getById(parseInt(id));
+
+      if (!prato) {
+        return res.status(404).json({ erro: "Prato não encontrado" });
+      }
+
+      res.json(prato);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ erro: "Erro ao buscar o prato" });
+    }
+  };
+
+
   update = async (req, res) => {
     const { id } = req.params;
     const { name, description, price, category, ingredients, imageUrl, prepTime } = req.body;

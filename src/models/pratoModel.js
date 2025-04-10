@@ -5,6 +5,14 @@ class PratoModel {
     return await prisma.pratos.findMany();
   };
 
+
+  
+  getById = async (id) => {
+    return await prisma.pratos.findUnique({
+      where: { id },
+    });
+  };
+
   create = async (
     name,
     description,
