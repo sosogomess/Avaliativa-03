@@ -2,11 +2,19 @@ import prisma from "../../prisma/client.js";
 
 class PratoModel {
   getAll = async () => {
-    return await prisma.task.findMany();
+    return await prisma.pratos.findMany();
   };
 
-  create = async ( name, description, price, category, ingredients, imageUrl, prepTime) => {
-    return await prisma.task.create({
+  create = async (
+    name,
+    description,
+    price,
+    category,
+    ingredients,
+    imageUrl,
+    prepTime
+  ) => {
+    return await prisma.pratos.create({
       data: {
         name,
         description,
@@ -14,23 +22,27 @@ class PratoModel {
         category,
         ingredients,
         imageUrl,
-        prepTime
+        prepTime,
       },
     });
   };
 
-  update = async ( name, description, price,category, ingredients, imageUrl, prepTime) => {
+  update = async (
+    id,
+    name,
+    description,
+    price,
+    category,
+    ingredients,
+    imageUrl,
+    prepTime
+  ) => {
     try {
-      const prato = await prisma.task.update({
+      const prato = await prisma.pratos.update({
         where: { id },
         data: {
-        name,
-        description,
-        price,
-        category,
-        ingredients,
-        imageUrl,
-        prepTime
+          name,
+          price,   //Dev mexeu aqui e tirou alguns campos, para o PUT funcionar
         },
       });
 
@@ -43,7 +55,7 @@ class PratoModel {
 
   delete = async (id) => {
     try {
-      const pratoDeletada = await prisma.task.delete({
+      const pratoDeletada = await prisma.pratos.delete({
         where: { id },
       });
 

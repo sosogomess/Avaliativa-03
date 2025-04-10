@@ -44,7 +44,9 @@ class PratoController {
 
   update = async (req, res) => {
     const { id } = req.params;
-    const { name, description, price,category, ingredients, imageUrl, prepTime } = req.body;
+    const { name, description, price, category, ingredients, imageUrl, prepTime } = req.body;
+    // console.log(id, name, price);
+    
 
     try {
       const pratoAtualizado = await pratoModel.update(
@@ -58,7 +60,7 @@ class PratoController {
         prepTime
       );
 
-      if (!pratotualizada) {
+      if (!pratoAtualizado) {
         return res.status(404).json({ erro: "Prato não encontrado!" });
       }
 
